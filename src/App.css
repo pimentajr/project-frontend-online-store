@@ -1,42 +1,107 @@
-.App {
-  text-align: center;
+* {
+  margin: 0;
+  padding: 0;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media ( prefers-reduced-motion : no-preference ) {
-
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-
-}
-
-.App-header {
+.navHome {
   align-items: center;
-  background-color: #282c34;
+  background-color: black;
   color: white;
   display: flex;
+  justify-content: space-around;
+  padding: 25px;
+}
+
+.category {
+  align-items: flex-start;
+  display: flex;
   flex-direction: column;
-  font-size: calc(10px + 2vmin);
   justify-content: center;
-  min-height: 100vh;
+  margin-right: 1050px;
+  min-width: 300px;
+  padding: 10px;
+  position: absolute;
+  width: 20%;
 }
 
-.App-link {
-  color: #61dafb;
+.category input {
+  margin-left: 15px;
 }
 
-@keyframes App-logo-spin {
+.product {
+  align-items: stretch;
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: flex-end;
+  width: 70%;
+}
 
-  from {
-    transform: rotate(0deg);
-  }
+.productItem {
+  display: flex;
+  flex-flow: column nowrap;
+  height: fit-content;
+  justify-content: space-evenly;
+  margin: 5px;
+  width: 300px;
+}
 
-  to {
-    transform: rotate(360deg);
-  }
+
+.containerHome {
+  display: flex;
+  justify-content: space-around;
+}
+
+.containerHome .product {
+  justify-content: right;
+  margin-left: 280px;
+}
+
+.bt {
+  margin-left: 15px;
+}
+
+.imgr {
+  height: auto;
+  max-width: 350px;
+}
+
+.forms {
+  margin: 0 auto;
+  padding: 5px;
+  width: 90%;
+}
+
+.btDatails {
+  margin-left: 50px;
+  padding: 20px;
+}
+
+.btDatails1 {
+  margin-right: 50px;
+}
+
+.cartItems {
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: space-around;
+}
+
+.cart {
+  border: 1px solid;
+  border-radius: 8px;
+  box-shadow: 2px 3px #888;
+  margin: 15px;
+  padding: 10px;
+  width: 400px;
+}
+
+.btCart {
+  margin: 5px;
+}
+
+.btCartItem {
+  align-items: center;
+  display: flex;
+  justify-content: space-around;
+  margin: 5px;
 }

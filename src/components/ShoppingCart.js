@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
+import { Button, Card } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
-import Button from './Button';
+import Buttons from './Button';
+import NavHome from './NavHome';
 
 export default class ShoppingCart extends Component {
   subClick = (index, id) => {
@@ -35,36 +37,70 @@ export default class ShoppingCart extends Component {
 
   render() {
     const getLocal = JSON.parse(localStorage.getItem('item'));
+    const loading = false;
     return (
-
       <div>
-        { !localStorage.item
-          ? <div data-testid="shopping-cart-empty-message">Seu carrinho está vazio</div>
-          : (getLocal.map(({ title, thumbnail, price, countP, id }, index) => (
-            <div key={ index }>
-              <div data-testid="shopping-cart-product-name">
-                <img src={ thumbnail } alt={ title } />
-                <p>{ title }</p>
-                <p>
-                  R$
-                  {price}
-                </p>
+        <NavHome loading={ loading } />
+        <div className="btCart">
+          <Link to="/shoppingCart">
+            <Button
+              className="btCart"
+              variant="danger"
+              type="button"
+              onClick={ this.deleteCart }
+            >
+              Limpar Carrinho
+            </Button>
+          </Link>
+          <Link to="checkout" data-testid="checkout-products">
+            <Button
+              className="btCart"
+              variant="success"
+            >
+              Checkout
+            </Button>
+          </Link>
+          <Link to="/">
+            <Button
+              className="btCart"
+              variant="secondary"
+            >
+              Voltar
+            </Button>
+          </Link>
+        </div>
+        <div className="cartItems">
+          { !localStorage.item
+            ? <div data-testid="shopping-cart-empty-message">Seu carrinho está vazio</div>
+            : (getLocal.map(({ title, thumbnail, price, countP, id }, index) => (
+              <div key={ index }>
+                <div className="cart" data-testid="shopping-cart-product-name">
+                  <Card.Img
+                    variant="top"
+                    className="imgr"
+                    src={ thumbnail }
+                    alt={ title }
+                  />
+                  <Card.Body>
+                    <Card.Title>{ title }</Card.Title>
+                    <Card.Text>
+                      {' '}
+                      R$:
+                      {price}
+                    </Card.Text>
+                    <Buttons
+                      deleteItem={ this.deleteItem }
+                      quantity={ countP }
+                      subClick={ this.subClick }
+                      addClick={ this.addClick }
+                      id={ id }
+                      index={ index }
+                    />
+                  </Card.Body>
+                </div>
               </div>
-              <Button
-                deleteItem={ this.deleteItem }
-                quantity={ countP }
-                subClick={ this.subClick }
-                addClick={ this.addClick }
-                id={ id }
-                index={ index }
-              />
-            </div>
-          ))) }
-        <Link to="/shoppingCart">
-          <button type="button" onClick={ this.deleteCart }>Limpar Carrinho</button>
-        </Link>
-        <Link to="checkout" data-testid="checkout-products">Checkout</Link>
-        <Link to="/">Voltar</Link>
+            ))) }
+        </div>
       </div>
     );
   }

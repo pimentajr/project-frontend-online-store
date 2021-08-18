@@ -1,21 +1,23 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
+import { Button } from 'react-bootstrap';
 
-export default class Button extends Component {
+export default class Buttons extends Component {
   render() {
     const { subClick, addClick, quantity, id, index, deleteItem } = this.props;
     return (
-      <div>
+      <div className="btCartItem">
         <Link to="/ShoppingCart">
-          <button
+          <Button
+            variant="primary"
             data-testid="product-decrease-quantity"
             type="button"
             onClick={ () => subClick(index, id) }
             value={ id }
           >
             -
-          </button>
+          </Button>
         </Link>
         <p data-testid="shopping-cart-product-quantity">
           {' '}
@@ -23,30 +25,32 @@ export default class Button extends Component {
           {' '}
         </p>
         <Link to="/ShoppingCart">
-          <button
+          <Button
+            variant="primary"
             data-testid="product-increase-quantity"
             type="button"
             onClick={ () => addClick(index) }
             value={ id }
           >
             +
-          </button>
+          </Button>
         </Link>
         <Link to="/ShoppingCart">
-          <button
+          <Button
+            variant="danger"
             onClick={ deleteItem }
             type="button"
             value={ id }
           >
             Deletar Item
-          </button>
+          </Button>
         </Link>
       </div>
     );
   }
 }
 
-Button.propTypes = {
+Buttons.propTypes = {
   subClick: PropTypes.func.isRequired,
   addClick: PropTypes.func.isRequired,
   deleteItem: PropTypes.func.isRequired,

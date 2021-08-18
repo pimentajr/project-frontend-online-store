@@ -1,7 +1,10 @@
 import React, { Component } from 'react';
+import '../App.css';
 import { Link } from 'react-router-dom';
+import { Button, Card } from 'react-bootstrap';
 import PropTypes from 'prop-types';
 import Form from './Form';
+import NavHome from './NavHome';
 
 export default class ProductDetails extends Component {
   constructor() {
@@ -50,58 +53,65 @@ export default class ProductDetails extends Component {
     const { itemsCart, quantityItems } = this.state;
     const { location: { state: { detail } } } = this.props;
     const { id, title, thumbnail, price, attributes, installments } = detail;
+    const loading = true;
 
     return (
       <div>
-        <Link
-          data-testid="shopping-cart-button"
-          to={ {
-            pathname: '/shoppingCart',
-            state: itemsCart,
-          } }
-        >
-          Carrinho(
-          <span data-testid="shopping-cart-size">{quantityItems}</span>
-          )
-        </Link>
-        <div>
-          <h1 data-testid="product-detail-name">{title}</h1>
-          <img src={ thumbnail } alt={ title } />
-          <h2>{`R$ ${price}`}</h2>
-        </div>
-
-        {
-          installments ? (
-            <div>
-              <h5>{`${detail.sold_quantity} unidades vendidas.`}</h5>
-              <p>
-                {`Estoque: ${installments.quantity}`}
-              </p>
-            </div>
-          ) : <p>Unidade única</p>
-        }
-
-        <div>
-          <h3>Especificações Técnicas:</h3>
+        <NavHome
+          filterProducts={ this.filterProducts }
+          itemsCart={ itemsCart }
+          quantityItems={ quantityItems }
+          loading={ loading }
+        />
+        <Card.Img variant="top" className="imgr" src={ thumbnail } alt={ title } />
+        <Card.Body>
+          <Card.Title data-testid="product-detail-name">{title}</Card.Title>
+          <Card.Text>
+            {`R$ ${price}`}
+          </Card.Text>
+          {
+            installments ? (
+              <div>
+                <h5>{`${detail.sold_quantity} unidades vendidas.`}</h5>
+                <p>
+                  {`Estoque: ${installments.quantity}`}
+                </p>
+              </div>
+            ) : <p>Unidade única</p>
+          }
           <div>
-            {attributes.map((attribute, index) => (
-              <p key={ index }>
-                {attribute.name}
-                :
-                {attribute.value_name}
-              </p>
-            ))}
+            <h3>Especificações Técnicas:</h3>
+            <div>
+              {attributes.map((attribute, index) => (
+                <p key={ index }>
+                  {attribute.name}
+                  :
+                  {attribute.value_name}
+                </p>
+              ))}
+            </div>
           </div>
+        </Card.Body>
+        <Card.Footer />
+        <div className="btDatails">
+          <Link to="/">
+            <Button
+              className="btDatails1"
+              variant="primary"
+            >
+              Voltar
+            </Button>
+          </Link>
+          <Button
+            variant="outline-success"
+            data-testid="product-detail-add-to-cart"
+            value={ id }
+            onClick={ () => this.handlerLocalStore(detail) }
+            type="button"
+          >
+            Adicionar ao Carrinho
+          </Button>
         </div>
-        <Link to="/">Voltar</Link>
-        <button
-          data-testid="product-detail-add-to-cart"
-          value={ id }
-          onClick={ () => this.handlerLocalStore(detail) }
-          type="button"
-        >
-          Adicionar ao Carrinho
-        </button>
         <Form idProduct={ id } />
       </div>
     );

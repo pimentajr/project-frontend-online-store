@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Button, Nav, Form, FormControl } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import Categories from './Categories';
 import * as api from '../services/api';
@@ -72,48 +73,71 @@ export default class SearchPageHome extends Component {
     const { categoriesData, product, loading, itemsCart } = this.state;
     return (
       <div>
-        <label htmlFor="initialMessage">
-          <input
-            data-testid="query-input"
-            type="text"
-            id="initialMessage"
-            onChange={ this.filterProducts }
-            name="query"
-          />
-        </label>
-        { categoriesData.map((item) => (<Categories
-          listCategories={ item }
-          changeCategory={ this.handleListCategories }
-          key={ item.name }
-        />
-        ))}
-        <button
-          data-testid="query-button"
-          type="button"
-          onClick={ this.getProducts }
-        >
-          Pesquisar
-        </button>
-        <Link
-          data-testid="shopping-cart-button"
-          to={ {
-            pathname: '/shoppingCart',
-            state: itemsCart,
-          } }
-        >
-          Carrinho(
-          <span data-testid="shopping-cart-size">{itemsCart}</span>
-          )
-        </Link>
-        {loading ? (
-          <p data-testid="home-initial-message">
-            Digite algum termo de pesquisa ou escolha uma categoria.
-          </p>
-        ) : (product.map((item) => (<ProductList
-          products={ item }
-          key={ item.id }
-          foundQuantityItemsCart={ this.foundQuantityItemsCart }
-        />)))}
+        <div className="navHome">
+          <h1> Trybe Oline Store </h1>
+          <Nav className="mr-auto">
+            <Nav.Link><Link to="/"> Home </Link></Nav.Link>
+          </Nav>
+          <Nav className="mr-auto">
+            <Nav.Link><Link to="/about"> About </Link></Nav.Link>
+          </Nav>
+          <Form inline>
+            <FormControl
+              type="text"
+              data-testid="query-input"
+              placeholder="Search"
+              className="mr-sm-2"
+              id="initialMessage"
+              onChange={ this.filterProducts }
+            />
+            <Button
+              variant="outline-info"
+              data-testid="query-button"
+              type="button"
+              onClick={ this.getProducts }
+            >
+              Pesquisar
+            </Button>
+          </Form>
+          <Link
+            className="bt"
+            data-testid="shopping-cart-button"
+            to={ {
+              pathname: '/shoppingCart',
+              state: itemsCart,
+            } }
+          >
+            <Button
+              variant="primary"
+            >
+              Carrinho(
+              <span data-testid="shopping-cart-size">{itemsCart}</span>
+              )
+            </Button>
+          </Link>
+        </div>
+        <div className="containerHome">
+          <div className="category">
+            { categoriesData.map((item) => (<Categories
+              listCategories={ item }
+              changeCategory={ this.handleListCategories }
+              key={ item.name }
+            />
+            ))}
+
+          </div>
+          <div className="product">
+            {loading ? (
+              <p data-testid="home-initial-message">
+                Digite algum termo de pesquisa ou escolha uma categoria.
+              </p>
+            ) : (product.map((item) => (<ProductList
+              products={ item }
+              key={ item.id }
+              foundQuantityItemsCart={ this.foundQuantityItemsCart }
+            />)))}
+          </div>
+        </div>
       </div>
     );
   }
