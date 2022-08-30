@@ -38,10 +38,10 @@ Com os softwares instalados, siga as instruções abaixo:
 
 ```bash
 # Clonar o repositório
-git clone https://github.com/pimentajr/project-frontend-online-store
+git clone https://github.com/pimentajr/trybe-frontend-online-store
 
 # Entrar no diretório
-cd project-frontend-online-store
+cd trybe-frontend-online-store
 
 # Baixar as dependências
 npm i
